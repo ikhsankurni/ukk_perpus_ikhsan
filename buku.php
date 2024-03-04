@@ -1,0 +1,43 @@
+<h1 class="mt-4"> buku</h1>
+<div class="card">
+    <div class="card-body">
+<div class="row">
+    <div class="col-md-12">
+        <a href="?page=buku_tambah" class="btn btn-primary">tambah data</a><br>
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+            <th>no</th>
+            <th>judul</th>
+            <th>kategori</th>
+            <th>penulis</th>
+            <th>penerbit</th>
+            <th>tahun terbit</th>
+            <th>deskripsi</th>
+            <th>aksi</th>
+            </tr>
+        <?php 
+        $i = 1;
+        $query = mysqli_query($koneksi, "SELECT*FROM buku LEFT JOIN kategori ON kategori.id_kategori = buku.id_kategori");
+        while($data = mysqli_fetch_array($query)){
+            ?>
+            <tr>
+               <td><?php echo $i++; ?></td>
+               <td><?php echo $data['judul']; ?></td>
+               <td><?php echo $data['namakategori']; ?></td>
+               <td><?php echo $data['penulis']; ?></td>
+               <td><?php echo $data['penerbit']; ?></td>
+               <td><?php echo $data['tahun_terbit']; ?></td>
+               <td><?php echo $data['deskripsi']; ?></td>
+               <td>
+                <a href="?page=buku_ubah&&id=<?php echo $data['id_buku']; ?>" class="btn btn-info">ubah</a>
+                <a onclick="return confirm('apakah anda yakin untuk hapus');" href="?page=buku_hapus&&id=<?php echo $data['id_buku']; ?>" class="btn btn-danger">hapus</a>
+               </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </table>
+    </div>
+</div>
+</div>
+    </div>
